@@ -1,0 +1,258 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "source:selection_box",
+            "basic_render_parameters": {
+                "material": "particles_opaque",
+                "texture": "textures/particles/selection_pixel"
+            }
+        },
+        "components": {
+            "minecraft:emitter_initialization": {
+                "creation_expression": "v.white.r = 1; v.white.g = 1; v.white.b = 1; v.face_color = v.face_color ?? v.white; v.edge_color = v.edge_color ?? v.white; v.face_alpha = v.face_alpha ?? 0.2; v.inner_alpha = v.inner_alpha ?? 0.5; v.edges_enabled = v.edges_enabled ?? 1; v.stroke = 1 / 32; v.expand = 1 / 32; v.one.x = 1; v.one.y = 1; v.one.z = 1; v.size = v.size ?? v.one; v.zero.x = 0; v.zero.y = 0; v.zero.z = 0; v.center = v.center ?? v.zero;"
+            },
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 0
+            },
+            "minecraft:emitter_lifetime_events": {
+                "creation_event": [
+                    "paint_faces_x",
+                    "paint_faces_y",
+                    "paint_faces_z",
+                    "paint_edges_x",
+                    "paint_edges_y",
+                    "paint_edges_z",
+                    "shutdown"
+                ]
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": 1
+            },
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    0,
+                    0
+                ]
+            },
+            "minecraft:particle_lifetime_expression": {
+                "expiration_expression": "v.closed ?? 0"
+            }
+        },
+        "events": {
+            "shutdown": {
+                "expression": "v.closed = 1;"
+            },
+            "paint_faces_x": {
+                "sequence": [
+                    {
+                        "expression": "t.cx = v.center.x; t.cy = v.center.y; t.cz = v.center.z; t.rx = v.size.x * 0.5 + v.expand; t.ry = v.size.y * 0.5 + v.expand; t.rz = v.size.z * 0.5 + v.expand; t.r = v.face_color.r; t.g = v.face_color.g; t.b = v.face_color.b; t.outer = v.face_alpha; t.inner = math.clamp((v.face_alpha - v.inner_alpha) / (v.face_alpha - 1), 0, 1);"
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.outer; v.px = t.cx + t.rx; v.py = t.cy; v.pz = t.cz; v.dx = 1; v.dy = 0; v.dz = 0; v.u = t.rz; v.v = t.ry;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.inner; v.px = t.cx + t.rx; v.py = t.cy; v.pz = t.cz; v.dx = -1; v.dy = 0; v.dz = 0; v.u = t.rz; v.v = t.ry;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.outer; v.px = t.cx - t.rx; v.py = t.cy; v.pz = t.cz; v.dx = -1; v.dy = 0; v.dz = 0; v.u = t.rz; v.v = t.ry;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.inner; v.px = t.cx - t.rx; v.py = t.cy; v.pz = t.cz; v.dx = 1; v.dy = 0; v.dz = 0; v.u = t.rz; v.v = t.ry;"
+                        }
+                    }
+                ]
+            },
+            "paint_faces_y": {
+                "sequence": [
+                    {
+                        "expression": "t.cx = v.center.x; t.cy = v.center.y; t.cz = v.center.z; t.rx = v.size.x * 0.5 + v.expand; t.ry = v.size.y * 0.5 + v.expand; t.rz = v.size.z * 0.5 + v.expand; t.r = v.face_color.r; t.g = v.face_color.g; t.b = v.face_color.b; t.outer = v.face_alpha; t.inner = math.clamp((v.face_alpha - v.inner_alpha) / (v.face_alpha - 1), 0, 1);"
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.outer; v.px = t.cx; v.py = t.cy + t.ry; v.pz = t.cz; v.dx = 0; v.dy = -1; v.dz = 0; v.u = t.rx; v.v = t.rz;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.inner; v.px = t.cx; v.py = t.cy + t.ry; v.pz = t.cz; v.dx = 0; v.dy = 1; v.dz = 0; v.u = t.rx; v.v = t.rz;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.outer; v.px = t.cx; v.py = t.cy - t.ry; v.pz = t.cz; v.dx = 0; v.dy = 1; v.dz = 0; v.u = t.rx; v.v = t.rz;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.inner; v.px = t.cx; v.py = t.cy - t.ry; v.pz = t.cz; v.dx = 0; v.dy = -1; v.dz = 0; v.u = t.rx; v.v = t.rz;"
+                        }
+                    }
+                ]
+            },
+            "paint_faces_z": {
+                "sequence": [
+                    {
+                        "expression": "t.cx = v.center.x; t.cy = v.center.y; t.cz = v.center.z; t.rx = v.size.x * 0.5 + v.expand; t.ry = v.size.y * 0.5 + v.expand; t.rz = v.size.z * 0.5 + v.expand; t.r = v.face_color.r; t.g = v.face_color.g; t.b = v.face_color.b; t.outer = v.face_alpha; t.inner = math.clamp((v.face_alpha - v.inner_alpha) / (v.face_alpha - 1), 0, 1);"
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.outer; v.px = t.cx; v.py = t.cy; v.pz = t.cz + t.rz; v.dx = 0; v.dy = 0; v.dz = 1; v.u = t.rx; v.v = t.ry;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.inner; v.px = t.cx; v.py = t.cy; v.pz = t.cz + t.rz; v.dx = 0; v.dy = 0; v.dz = -1; v.u = t.rx; v.v = t.ry;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.outer; v.px = t.cx; v.py = t.cy; v.pz = t.cz - t.rz; v.dx = 0; v.dy = 0; v.dz = -1; v.u = t.rx; v.v = t.ry;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_face",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.fr = t.r; v.fg = t.g; v.fb = t.b; v.fa = t.inner; v.px = t.cx; v.py = t.cy; v.pz = t.cz - t.rz; v.dx = 0; v.dy = 0; v.dz = 1; v.u = t.rx; v.v = t.ry;"
+                        }
+                    }
+                ]
+            },
+            "paint_edges_x": {
+                "sequence": [
+                    {
+                        "expression": "t.cx = v.center.x; t.cy = v.center.y; t.cz = v.center.z; t.h = v.stroke * v.edges_enabled; t.off = v.stroke / math.sqrt(2); t.rx = v.size.x * 0.5 + v.expand + t.off; t.ry = v.size.y * 0.5 + v.expand + t.off; t.rz = v.size.z * 0.5 + v.expand + t.off; t.r = v.edge_color.r; t.g = v.edge_color.g; t.b = v.edge_color.b;"
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx; v.py = t.cy + t.ry; v.pz = t.cz + t.rz; v.dx = 1; v.dy = 0; v.dz = 0; v.u = t.rx; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx; v.py = t.cy + t.ry; v.pz = t.cz - t.rz; v.dx = 1; v.dy = 0; v.dz = 0; v.u = t.rx; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx; v.py = t.cy - t.ry; v.pz = t.cz + t.rz; v.dx = 1; v.dy = 0; v.dz = 0; v.u = t.rx; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx; v.py = t.cy - t.ry; v.pz = t.cz - t.rz; v.dx = 1; v.dy = 0; v.dz = 0; v.u = t.rx; v.v = t.h;"
+                        }
+                    }
+                ]
+            },
+            "paint_edges_y": {
+                "sequence": [
+                    {
+                        "expression": "t.cx = v.center.x; t.cy = v.center.y; t.cz = v.center.z; t.h = v.stroke * v.edges_enabled; t.off = v.stroke / math.sqrt(2); t.rx = v.size.x * 0.5 + v.expand + t.off; t.ry = v.size.y * 0.5 + v.expand + t.off; t.rz = v.size.z * 0.5 + v.expand + t.off; t.r = v.edge_color.r; t.g = v.edge_color.g; t.b = v.edge_color.b;"
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx + t.rx; v.py = t.cy; v.pz = t.cz + t.rz; v.dx = 0; v.dy = 1; v.dz = 0; v.u = t.ry; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx + t.rx; v.py = t.cy; v.pz = t.cz - t.rz; v.dx = 0; v.dy = 1; v.dz = 0; v.u = t.ry; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx - t.rx; v.py = t.cy; v.pz = t.cz + t.rz; v.dx = 0; v.dy = 1; v.dz = 0; v.u = t.ry; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx - t.rx; v.py = t.cy; v.pz = t.cz - t.rz; v.dx = 0; v.dy = 1; v.dz = 0; v.u = t.ry; v.v = t.h;"
+                        }
+                    }
+                ]
+            },
+            "paint_edges_z": {
+                "sequence": [
+                    {
+                        "expression": "t.cx = v.center.x; t.cy = v.center.y; t.cz = v.center.z; t.h = v.stroke * v.edges_enabled; t.off = v.stroke / math.sqrt(2); t.rx = v.size.x * 0.5 + v.expand + t.off; t.ry = v.size.y * 0.5 + v.expand + t.off; t.rz = v.size.z * 0.5 + v.expand + t.off; t.r = v.edge_color.r; t.g = v.edge_color.g; t.b = v.edge_color.b;"
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx + t.rx; v.py = t.cy + t.ry; v.pz = t.cz; v.dx = 0; v.dy = 0; v.dz = 1; v.u = t.rz; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx + t.rx; v.py = t.cy - t.ry; v.pz = t.cz; v.dx = 0; v.dy = 0; v.dz = 1; v.u = t.rz; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx - t.rx; v.py = t.cy + t.ry; v.pz = t.cz; v.dx = 0; v.dy = 0; v.dz = 1; v.u = t.rz; v.v = t.h;"
+                        }
+                    },
+                    {
+                        "particle_effect": {
+                            "effect": "source:selection_edge",
+                            "type": "emitter",
+                            "pre_effect_expression": "v.cr = t.r; v.cg = t.g; v.cb = t.b; v.px = t.cx - t.rx; v.py = t.cy - t.ry; v.pz = t.cz; v.dx = 0; v.dy = 0; v.dz = 1; v.u = t.rz; v.v = t.h;"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

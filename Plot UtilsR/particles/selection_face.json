@@ -1,0 +1,70 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "source:selection_face",
+            "basic_render_parameters": {
+                "material": "selection_blend",
+                "texture": "textures/particles/selection_pixel"
+            }
+        },
+        "curves": {
+            "variable.face_in": {
+                "type": "bezier",
+                "nodes": [ 0, 0, 1, 1 ],
+                "input": "math.clamp((v.particle_age - v.face_start) / v.face_fade, 0, 1)"
+            },
+            "variable.face_out": {
+                "type": "bezier",
+                "nodes": [ 1, 1, 0, 0 ],
+                "input": "math.clamp((v.particle_age - v.fade_out) / v.face_fade, 0, 1)"
+            }
+        },
+        "components": {
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 0
+            },
+            "minecraft:emitter_initialization": {
+                "creation_expression": "v.face_delay = 3; v.face_pause = 0.6; v.face_fade = 0.4; v.face_start = 999; v.fade_out = 999; v.face_end = 999; v.fr = v.fr ?? 1; v.fg = v.fg ?? 1; v.fb = v.fb ?? 1; v.fa = v.fa ?? 0.5; v.px = v.px ?? 0; v.py = v.py ?? 0; v.pz = v.pz ?? 0; v.dx = v.dx ?? 0; v.dy = v.dy ?? 0; v.dz = v.dz ?? 0; v.u = v.u ?? 1; v.v = v.v ?? 1;",
+                "per_update_expression": "v.face_delay ? { v.face_delay = v.face_delay - 1; !v.face_delay ? { v.face_start = v.emitter_age; v.fade_out = v.face_start + v.face_fade + v.face_pause; v.face_end = v.face_pause + v.face_fade * 2; }; };"
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": 1
+            },
+            "minecraft:particle_lifetime_expression": {
+                "expiration_expression": "!v.face_delay && v.particle_age > v.face_end"
+            },
+            "minecraft:particle_motion_parametric": {
+                "relative_position": [
+                    "v.particle_age ? v.px",
+                    "v.particle_age ? v.py",
+                    "v.particle_age ? v.pz"
+                ]
+            },
+            "minecraft:particle_appearance_billboard": {
+                "facing_camera_mode": "direction_z",
+                "direction": {
+                    "mode": "custom",
+                    "custom_direction": [ "v.dx", "v.dy", "v.dz" ]
+                },
+                "size": [ "v.u", "v.v" ],
+                "uv": {
+                    "texture_width": 1,
+                    "texture_height": 1,
+                    "uv": [ 0, 0 ],
+                    "uv_size": [ 1, 1 ]
+                }
+            },
+            "minecraft:particle_appearance_tinting": {
+                "color": [
+                    "v.fr",
+                    "v.fg",
+                    "v.fb",
+                    "v.face_delay ? { return 0; }; return v.particle_age > v.fade_out ? v.fa * v.face_out : v.fa * v.face_in;"
+                ]
+            }
+        }
+    }
+}
+
+

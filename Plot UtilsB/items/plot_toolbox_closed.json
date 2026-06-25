@@ -1,0 +1,19 @@
+{
+    "format_version": "1.26.30",
+    "minecraft:item": {
+        "description": {
+            "identifier": "source:plot_toolbox_closed",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:display_name": {
+                "value": "item.source:plot_toolbox_closed.name"
+            },
+            "minecraft:icon": "plotutils:toolbox_closed",
+            "minecraft:hand_equipped": true
+        }
+    }
+}

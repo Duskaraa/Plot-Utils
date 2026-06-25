@@ -1,0 +1,20 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "source:inventory_stasher",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/entity/storage_container"
+            },
+            "geometry": {
+                "default": "geometry.storage_container"
+            },
+            "render_controllers": [
+                "controller.render.default"
+            ]
+        }
+    }
+}

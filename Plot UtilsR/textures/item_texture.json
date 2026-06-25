@@ -1,0 +1,54 @@
+{
+    "resource_pack_name": "plotutils",
+    "texture_name": "atlas.items",
+    "texture_data": {
+        "plotutils:config": {
+            "textures": "textures/items/config"
+        },
+        "plotutils:toolbox_closed": {
+            "textures": "textures/items/toolbox_closed"
+        },
+        "plotutils:toolbox_open": {
+            "textures": "textures/items/toolbox_open"
+        },
+        "plotutils:selection_wand": {
+            "textures": "textures/items/selection_wand"
+        },
+        "plotutils:list_tool": {
+            "textures": "textures/items/list"
+        },
+        "plotutils:create_tool": {
+            "textures": "textures/items/create"
+        },
+        "plotutils:visualize_tool": {
+            "textures": "textures/items/visualize"
+        },
+        "plotutils:visualize_groups_tool": {
+            "textures": "textures/items/visualize_groups"
+        },
+        "plotutils:visualize_global_tool": {
+            "textures": "textures/items/visualize_global"
+        },
+        "plotutils:back_tool": {
+            "textures": "textures/items/back"
+        },
+        "plotutils:guide_tool": {
+            "textures": "textures/items/guide"
+        },
+        "plotutils:advanced_tool": {
+            "textures": "textures/items/advanced"
+        },
+        "plotutils:groups_tool": {
+            "textures": "textures/items/groups"
+        },
+        "plotutils:advanced_info_tool": {
+            "textures": "textures/items/advanced_info"
+        },
+        "plotutils:create_group_tool": {
+            "textures": "textures/items/create_group"
+        },
+        "plotutils:finish_tool": {
+            "textures": "textures/items/finish"
+        }
+    }
+}

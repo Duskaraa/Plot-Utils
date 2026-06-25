@@ -1,0 +1,16 @@
+{
+    "format_version": "1.26.30",
+    "minecraft:item": {
+        "description": {
+            "identifier": "source:advanced_utilities_tool"
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:display_name": {
+                "value": "item.source:advanced_utilities_tool.name"
+            },
+            "minecraft:icon": "plotutils:advanced_tool",
+            "minecraft:hand_equipped": true
+        }
+    }
+}

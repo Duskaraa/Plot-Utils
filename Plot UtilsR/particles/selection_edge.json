@@ -1,0 +1,63 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "source:selection_edge",
+            "basic_render_parameters": {
+                "material": "particles_opaque",
+                "texture": "textures/particles/selection_pixel"
+            }
+        },
+        "curves": {
+            "variable.edge_collapse": {
+                "type": "bezier",
+                "nodes": [ 1, 1, 0, 0 ],
+                "input": "math.clamp((v.particle_age - v.edge_peak) / v.edge_fade, 0, 1)"
+            }
+        },
+        "components": {
+            "minecraft:emitter_initialization": {
+                "creation_expression": "v.delay_ticks = 3; v.edge_linger = 0.1; v.edge_fade = 0.5; v.edge_peak = 999; v.edge_end = 999; v.cr = v.cr ?? 1; v.cg = v.cg ?? 1; v.cb = v.cb ?? 1; v.px = v.px ?? 0; v.py = v.py ?? 0; v.pz = v.pz ?? 0; v.dx = v.dx ?? 0; v.dy = v.dy ?? 0; v.dz = v.dz ?? 0; v.u = v.u ?? 1; v.v = v.v ?? 1;",
+                "per_update_expression": "v.delay_ticks ? { v.delay_ticks = v.delay_ticks - 1; !v.delay_ticks ? { v.edge_peak = v.emitter_age + v.edge_linger + v.edge_fade; v.edge_end = v.edge_peak + v.edge_fade; }; };"
+            },
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 0
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": 1
+            },
+            "minecraft:particle_lifetime_expression": {
+                "expiration_expression": "!v.delay_ticks && v.particle_age > v.edge_end"
+            },
+            "minecraft:particle_motion_parametric": {
+                "relative_position": [
+                    "v.particle_age ? v.px",
+                    "v.particle_age ? v.py",
+                    "v.particle_age ? v.pz"
+                ]
+            },
+            "minecraft:particle_appearance_tinting": {
+                "color": [ "v.cr", "v.cg", "v.cb" ]
+            },
+            "minecraft:particle_appearance_billboard": {
+                "facing_camera_mode": "lookat_direction",
+                "direction": {
+                    "mode": "custom",
+                    "custom_direction": [ "v.dx", "v.dy", "v.dz" ]
+                },
+                "size": [
+                    "v.u",
+                    "!v.delay_ticks ? (v.v * v.edge_collapse)"
+                ],
+                "uv": {
+                    "texture_width": 1,
+                    "texture_height": 1,
+                    "uv": [ 0, 0 ],
+                    "uv_size": [ 1, 1 ]
+                }
+            }
+        }
+    }
+}
+
+
